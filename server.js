@@ -32,8 +32,8 @@ app.use(passport.session());
 app.use(flash());
 
 // routing
-app.use(express.static(__dirname + '/client'));
-require('./app/routes.js')(app, passport);
+app.use(express.static(__dirname + '/public'));
+require('./server/routes.js')(app, passport);
 
 //launch
 app.listen(port, process.env.IP || '0.0.0.0', function(){
