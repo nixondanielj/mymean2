@@ -32,6 +32,7 @@ app.use(passport.session());
 app.use(flash());
 
 // routing
+app.use(express.static(__dirname + '/client'));
 require('./app/routes.js')(app, passport);
 
 //launch
