@@ -5,17 +5,12 @@ module.exports = function(authFunc, passport) {
         .get(authFunc, function(req, res, next){
             res.sendStatus(200);
         })
-        .post(function(req, res, next){
-            passport.authenticate('local',
-                function(err, user, info){
-                    if(err){
-                        return res.sendStatus(500);
-                    } else if (!user){
-                        return res.sendStatus(401);
-                    } else {
-                        return res.sendStatus(200);
-                    }
-                })(req, res, next);
+        .post(passport.authenticate('local'), function(req, res, next){
+            if(req.isAuthenticated()){
+                res.sendStatus(200);
+            } else {
+                res.sendStatus(401);
+            }
         });
     return ctrl;
 };

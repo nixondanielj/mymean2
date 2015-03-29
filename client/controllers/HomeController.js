@@ -19,5 +19,12 @@
                     alert('failed to create ' + email);
                 });
         };
+        this.check = function(){
+            authSvc.check().then(function(){
+                alert('authed');
+            }, function(){
+                alert('unauthed');
+            });
+        };
     }]);
 })(window.angular, window.config);
