@@ -9,7 +9,7 @@ module.exports = function(authFunc) {
             password = (req.body.password || '').trim();
             if(email
                 && password
-                && email.indexOf('@onshoreoutsourcing.com') > 0) {
+                && email.indexOf('@') > 0) {
                 User.findOne({ email: email }, function(err, user){
                     if(err){
                         console.log(err);
@@ -19,11 +19,12 @@ module.exports = function(authFunc) {
                             console.log('User already exists');
                             res.sendStatus(409);
                         } else {
-                            new User({ 
-                                email: email, 
-                                password: password, 
-                                displayName: email.slice(0, email.lastIndexOf('@'))
-                            }).save(function(err, user){
+                            var newUser = new User();
+                            newUser.local.email = email;
+                            newUser.local.password = newUser.getHash(password);
+                            newUser.local.displayName = 
+                                email.slice(0, email.lastIndexOf('@'));
+                            newUser.save(function(err, newUser){
                                 if(err){
                                     console.log('failed to create user');
                                     console.error(err);
@@ -42,5 +43,6 @@ module.exports = function(authFunc) {
     
     ctrl.route('/:userId')
         .all(authFunc);
+    return ctrl;
 };
 

@@ -1,5 +1,6 @@
 <div>
     <form ng-submit="homeCtrl.signin(signin.email, signin.password)">
+        <h1>Sign In</h1>
         <div>
             <label>Email</label>
             <input type="email" required ng-model="signin.email">
@@ -8,11 +9,13 @@
             <label>Password</label>
             <input type="password" required ng-model="signin.password">
         </div>
+        <button type="submit">Sign In</button>
     </form>
 </div>
 <hr>
 <div>
     <form ng-submit="homeCtrl.register(register.email, register.password)">
+        <h1>Register</h1>
         <div>
             <label>Email</label>
             <input type="email" required ng-model="register.email">
@@ -21,5 +24,6 @@
             <label>Password</label>
             <input type="password" required ng-model="register.password">
         </div>
+        <button type="submit">Register</button>
     </form>
 </div>

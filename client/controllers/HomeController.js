@@ -12,7 +12,7 @@
         };
         this.register = function(email, password){
             new User({ email: email, password: password })
-                .save()
+                .$save()
                 .then(function(){
                     alert('successfully created ' + email);
                 }, function(){

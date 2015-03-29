@@ -1,10 +1,8 @@
 // setup
 var express = require('express');
 var app = express();
-var port = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
-var flash = require('connect-flash');
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -15,7 +13,7 @@ var session = require('express-session');
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 
-//require('./config/passport')(passport);
+require('./config/passport')(passport);
 
 // express setup
 // logging
@@ -26,16 +24,17 @@ app.use(cookieParser());
 app.use(bodyParser());
 // passport
 app.use(session({ secret: 'fakeSecret' }));
-app.use(passport.initialize);
+app.use(passport.initialize());
 app.use(passport.session());
-// might kill this... uses session messages
-app.use(flash());
 
 // routing
-app.use(express.static(__dirname + '/public'));
 require('./server/routes.js')(app, passport);
+app.get('/auth', function(req, res){
+    res.sendStatus(200);
+});
+app.use(express.static(__dirname + '/public'));
 
 //launch
-app.listen(port, process.env.IP || '0.0.0.0', function(){
+app.listen(process.env.PORT || 3000, process.env.IP || '0.0.0.0', function(){
     console.log('Running...');
 });
