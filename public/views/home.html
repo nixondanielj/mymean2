@@ -1,0 +1,25 @@
+<div>
+    <form ng-submit="homeCtrl.signin(signin.email, signin.password)">
+        <div>
+            <label>Email</label>
+            <input type="email" required ng-model="signin.email">
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" required ng-model="signin.password">
+        </div>
+    </form>
+</div>
+<hr>
+<div>
+    <form ng-submit="homeCtrl.register(register.email, register.password)">
+        <div>
+            <label>Email</label>
+            <input type="email" required ng-model="register.email">
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" required ng-model="register.password">
+        </div>
+    </form>
+</div>
